@@ -4,7 +4,7 @@ const app = express();
 const productRoutes = require('./routes');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://<name>:<password>@cluster0.e7emq.mongodb.net/<dbname>?retryWrites=true&w=majority',
+mongoose.connect('mongodb://127.0.0.1:27017/tdd',
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -13,7 +13,7 @@ mongoose.connect('mongodb+srv://<name>:<password>@cluster0.e7emq.mongodb.net/<db
     // .then(() => console.log('MongoDb Connected...'))
     .catch(err => console.log(err));
 
-app.use(express.json());
+app.use(express.json()); //미들웨어 함수 추가, restful json 데이터를 body에 받는 경우
 
 app.use("/api/products", productRoutes)
 
@@ -27,7 +27,7 @@ app.use((error, req, res, next) => {
 })
 
 
-// app.listen(PORT);
-// console.log(`Running on port ${PORT}`)
+app.listen(PORT);
+console.log(`Running on port ${PORT}`)
 
 module.exports = app;
